@@ -2,15 +2,11 @@
 
 namespace App\View\Components\Forms\ConcreteFormsFields;
 
-use App\Contracts\Repositories\CarBodiesRepositoryContract;
-use App\Contracts\Repositories\CarClassesRepositoryContract;
-use App\Contracts\Repositories\CarEnginesRepositoryContract;
+use App\Contracts\Repositories\Cars\CarBodiesRepositoryContract;
+use App\Contracts\Repositories\Cars\CarClassesRepositoryContract;
+use App\Contracts\Repositories\Cars\CarEnginesRepositoryContract;
 use App\Contracts\Repositories\CategoriesRepositoryContract;
 use App\Models\Car;
-use App\Models\CarBody;
-use App\Models\CarClass;
-use App\Models\CarEngine;
-use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

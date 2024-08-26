@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Contracts\Services\Flash\MessageLimiterContract;
 use Illuminate\Support\Str;
-use App\Contracts\Services\MessageLimiterContract;
+
 class MessageLimiter implements MessageLimiterContract
 {
     public function limit(string $message, int $limit = 20, string $end = '...'):

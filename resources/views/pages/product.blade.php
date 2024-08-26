@@ -1,45 +1,17 @@
 <x-layouts.inner
     page-title="{{ $car->name }}"
     title="{{ $car->name }}"
+    page="product"
+    :addPage="null"
 >
-    @push('styles')
-        <link href="/assets/css/inner_page_template_styles.css" rel="stylesheet">
-    @endpush
-    @push('scripts')
-        <script>
-            $(function () {
-                $('[data-slick-carousel-detail]').each(function () {
-                    let $carousel = $(this);
-
-                    $carousel.find('[data-slick-carousel-detail-items]').slick({
-                        dots: true,
-                        arrows: false,
-                        appendDots: $carousel.find('[data-slick-carousel-detail-pager]'),
-                        rows: 0,
-                        customPaging: function (slick, index) {
-                            let imageSrc = slick.$slides[index].src;
-
-                            return `
-<div class="relative">
-  <svg xmlns="http://www.w3.org/2000/svg" class="active-arrow absolute -top-6 left-2/4 -ml-3 text-orange h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-  </svg>
-  <span class="inline-block border rounded cursor-pointer"><img class="h-20 w-40 object-cover" src="${imageSrc}" alt="" title=""></span>
-</div>`;
-                        }
-                    })
-                })
-            })
-        </script>
-    @endpush
 
     <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 border-b w-full">
         <div class="col-span-3 border-r-0 sm:border-r pb-4 pr-4 text-center catalog-detail-slick-preview" data-slick-carousel-detail>
             <div class="mb-4 border rounded" data-slick-carousel-detail-items>
-                <img class="w-full" src="/assets/pictures/car_K5-half.png" alt="" title="">
-                <img class="w-full" src="/assets/pictures/car_k5_1.png" alt="" title="">
-                <img class="w-full" src="/assets/pictures/car_k5_2.png" alt="" title="">
-                <img class="w-full" src="/assets/pictures/car_k5_3.png" alt="" title="">
+                <img class="w-full" src="{{ $car->imageUrl }}" alt="{{ $car->name }}">
+                @foreach ($car->images as $image)
+                    <img class="w-full" src="{{ $image->url }}" alt="{{ $car->name }}">
+                @endforeach
             </div>
             <div class="flex space-x-4 justify-center items-center" data-slick-carousel-detail-pager>
             </div>

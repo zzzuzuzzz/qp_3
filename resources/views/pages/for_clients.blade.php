@@ -1,6 +1,7 @@
 <x-layouts.inner_two_columns
     page-title="Для клиентов"
     title="Для клиентов"
+    page="info_pages"
 >
     @dump('Средняя цена автомобилей:')
     @dump($price)

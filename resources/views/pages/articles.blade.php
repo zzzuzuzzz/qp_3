@@ -1,6 +1,7 @@
 <x-layouts.inner_two_columns
     page-title="Все новости"
     title="Все новости"
+    page="articles"
 >
     <div class="space-y-4">
         <x-articles.list :articles="$articlesData->articles"/>

@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\ArticlesRepositoryContract;
-use App\Contracts\Repositories\CarsRepositoryContract;
-use App\Models\Article;
-use App\Models\Car;
-use Database\Seeders\ArticleSeeder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Contracts\Repositories\BannersRepositoryContract;
+use App\Contracts\Repositories\Cars\CarsRepositoryContract;
+use App\DTO\ApiSalonModel;
 use Illuminate\Support\Str;
 
 class PagesController extends Controller
 {
-    public function index(CarsRepositoryContract $carsRepository, ArticlesRepositoryContract $articlesRepository)
+    public function index(CarsRepositoryContract $carsRepository, ArticlesRepositoryContract $articlesRepository, BannersRepositoryContract $bannersRepository)
     {
         $cars = $carsRepository->findForMainPage(4);
         $articles = $articlesRepository->findForMainPage(3);
-        return view('pages.homepage', ['articles' => $articles, 'cars' => $cars]);
+        $banners = $bannersRepository->findForMainPage(3);
+        return view('pages.homepage', ['articles' => $articles, 'cars' => $cars, 'banners' => $banners]);
     }
     public function about()
     {
@@ -68,5 +66,9 @@ class PagesController extends Controller
             'filter' => $filter,
             'bodies' => $bodies
         ]);
+    }
+    public function account()
+    {
+        return view('pages.account');
     }
 }

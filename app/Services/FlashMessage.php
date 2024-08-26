@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\Services\Flash\FlashMessageContract;
+use App\Contracts\Services\Flash\MessageLimiterContract;
 use Illuminate\Session\SessionManager;
 use Illuminate\Session\Store;
 use Illuminate\Support\Collection;
-use App\Contracts\Services\FlashMessageContract;
-use App\Contracts\Services\MessageLimiterContract;
 
 class FlashMessage implements FlashMessageContract
 {

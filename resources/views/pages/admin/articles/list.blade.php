@@ -22,6 +22,8 @@
                 <th class="border px-4 py-2 border-gray-600 bg-gray-200 font-bold">Краткое описание</th>
                 <th class="border px-4 py-2 border-gray-600 bg-gray-200 font-bold">Дата публикации</th>
                 <th class="border px-4 py-2 border-gray-600 bg-gray-200 font-bold">Теги</th>
+                <th class="border px-4 py-2 border-gray-600 bg-gray-200 font-bold">&nbsp;</th>
+                <th class="border px-4 py-2 border-gray-600 bg-gray-200 font-bold">&nbsp;</th>
             </tr>
             </thead>
             <tbody>

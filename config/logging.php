@@ -52,6 +52,13 @@ return [
 
     'channels' => [
 
+        'carsInfo' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/cars/cars.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+        
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', env('LOG_STACK', 'single')),

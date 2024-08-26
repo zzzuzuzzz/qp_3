@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/assets/css/form.min.css" rel="stylesheet">
-    <link href="/assets/css/tailwind.css" rel="stylesheet">
-    <link href="/assets/css/base.css" rel="stylesheet">
-    @stack('styles')
-
-    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
-
-    <link href="/assets/js/vendor/slick.css" rel="stylesheet">
-    <script src="/assets/js/vendor/slick.min.js"></script>
-
-    <script src="/assets/js/script.js"></script>
-    @stack('scripts')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     <title>{{ config('app.name') }} - {{ $pageTitle ?? 'Главная страница' }}</title>
     <link href="/assets/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
@@ -33,7 +23,11 @@
                         @endisset
                     </div>
                     <div>
-                        <x-panels.user_not_auth_menu />
+                        @auth()
+                            <x-panels.user_auth_menu />
+                        @else
+                            <x-panels.user_not_auth_menu />
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -72,7 +66,7 @@
             @else
                 <section class="block sm:flex bg-white p-4">
                     <div class="flex-1">
-                        <x-panels.salons />
+                        <x-salons-in-footer />
                     </div>
                     <div class="mt-8 border-t sm:border-t-0 sm:mt-0 sm:border-l py-2 sm:pl-4 sm:pr-8">
                         <p class="text-3xl text-black font-bold mb-4">Информация</p>

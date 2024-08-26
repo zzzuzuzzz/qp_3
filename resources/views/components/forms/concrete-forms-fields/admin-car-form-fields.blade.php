@@ -10,12 +10,12 @@
         error="{{ $errors->first('name') }}"
     />
 </x-forms.groups.group>
-<x-forms.groups.group for="fieldCarMainImage" error="{{ $errors->first('image')
-}}">
+<x-forms.groups.group for="fieldCarMainImage" error="{{ $errors->first('image') }}">
     <x-slot:label>Основное изображение модели</x-slot:label>
     <x-forms.inputs.one-file
         id="fieldCarMainImage"
-        value="{{ $car->image }}"
+        name="image"
+        value="{{ $car->imageUrl }}"
     />
 </x-forms.groups.group>
 <x-forms.groups.group for="fieldCarPrice" error="{{ $errors->first('price') }}">
@@ -140,7 +140,8 @@
     <x-slot:label>Дополнительные изображения модели</x-slot:label>
     <x-forms.inputs.multiple-files
         id="fieldCarAdditionalImages"
-        :values="['/assets/images/no_image.png', '/assets/images/no_image.png', '/assets/images/no_image.png']"
+        name="images"
+        :values="$car->images->pluck('url')->all()"
     />
 </x-forms.groups.group>
 <x-forms.groups.checkbox-group error="{{ $errors->first('is_new') }}">

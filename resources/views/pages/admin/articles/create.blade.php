@@ -2,7 +2,7 @@
     page-title="Форма создания новостей"
     title="Форма создания новостей"
 >
-    <x-forms.form action="{{ route('admin.articles.store') }}" method="post">
+    <x-forms.form action="{{ route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
         <x-forms.concrete-forms-fields.admin-article-form-fields :article="$article" />
         <x-forms.row>
             <x-forms.submit-button>

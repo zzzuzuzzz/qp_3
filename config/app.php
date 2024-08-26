@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'admin_email' => 'admin@example.com',
+    'admin_password' => '123123123'
 ];

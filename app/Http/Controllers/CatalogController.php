@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Repositories\CarsRepositoryContract;
-use App\Contracts\Repositories\CategoriesRepositoryContract;
-use App\Contracts\Services\CatalogDataCollectorServiceContract;
+use App\Contracts\Repositories\Cars\CarsRepositoryContract;
+use App\Contracts\Services\Cars\CatalogDataCollectorServiceContract;
 use App\DTO\CatalogFilterDTO;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -34,7 +32,7 @@ class CatalogController extends Controller
 
     public function car(int $id, CarsRepositoryContract $carsRepository): View
     {
-        $product = $carsRepository->getById($id, ['carClass', 'engine', 'body', 'tags']);
+        $product = $carsRepository->getById($id, ['carClass', 'engine', 'body', 'image', 'images', 'tags']);
         return view('pages.product', ['car' => $product]);
     }
 }

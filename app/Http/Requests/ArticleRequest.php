@@ -33,8 +33,9 @@ class ArticleRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'body' => 'required|string',
-            'published_at' => 'nullable|date', // Проверить эту строку
-            'slug' => 'string' // Проверить эту строку
+            'published_at' => 'nullable|date',
+            'slug' => 'string',
+            'image' => ['sometimes', 'nullable', 'image']
         ];
     }
 }

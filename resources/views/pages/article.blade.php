@@ -1,9 +1,10 @@
 <x-layouts.inner_two_columns
     page-title="{{ $article->title }}"
     title="{{ $article->title }}"
+    page="article"
 >
     <div class="space-y-4">
-        <img src="/assets/pictures/car_new_stinger.png" alt="" title="">
+        <img class="w-full" src="{{ $article->imageUrl }}" alt="{{ $article->name }}">
 
         @if ($article->tags->isNotEmpty())
             <x-catalog.detail-product-props-row :title="'Теги'">

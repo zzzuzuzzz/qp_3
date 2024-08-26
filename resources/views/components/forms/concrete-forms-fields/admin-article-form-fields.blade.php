@@ -19,14 +19,15 @@
     />
 </x-forms.groups.checkbox-group>
 
-<x-forms.groups.group for="fieldCarMainImage" error="{{ $errors->first('image') }}">
+<x-forms.groups.group for="fieldArticleMainImage" error="{{ $errors->first('image')
+}}">
     <x-slot:label>Изображение новости</x-slot:label>
-    <div class="flex items-center justify-center border rounded mb-2"><img src="/assets/images/no_image.png" class="max-w-full max-h-60"></div>
     <x-forms.inputs.one-file
-        id="fieldArticleImage"
+        id="fieldArticleMainImage"
+        name="image"
+        value="{{ $article->imageUrl }}"
     />
 </x-forms.groups.group>
-
 <x-forms.groups.group for="fieldArticleDescription" error="{{ $errors->first('description') }}">
     <x-slot:label>Краткое описание</x-slot:label>
     <x-forms.inputs.textarea

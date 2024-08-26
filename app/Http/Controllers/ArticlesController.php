@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Repositories\ArticlesRepositoryContract;
-use App\Contracts\Services\ArticlesDataCollectorServiceContract;
+use App\Contracts\Services\Articles\ArticlesDataCollectorServiceContract;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,7 +21,7 @@ class ArticlesController extends Controller
     }
     public function article(int $id, ArticlesRepositoryContract $articlesRepository): View
     {
-        $article = $articlesRepository->getById($id, ['tags']);
+        $article = $articlesRepository->getById($id, ['image', 'tags']);
         return view('pages.article', ['article' => $article]);
     }
 }

@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\Repositories\CarsRepositoryContract;
-use App\Contracts\Services\CarUpdateServiceContract;
-use App\Contracts\Services\FlashMessageContract;
+use App\Contracts\Repositories\Cars\CarsRepositoryContract;
+use App\Contracts\Services\Cars\CarCreationServiceContract;
+use App\Contracts\Services\Cars\CarRemoverServiceContract;
+use App\Contracts\Services\Cars\CarUpdateServiceContract;
+use App\Contracts\Services\Flash\FlashMessageContract;
 use App\Contracts\Services\TagsSynchronizerServiceContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CarRequest;
 use App\Http\Requests\TagsRequest;
+use App\Models\Car;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use App\Contracts\Services\CarCreationServiceContract;
 
 class AdminCarsController extends Controller
 {
@@ -23,6 +26,7 @@ class AdminCarsController extends Controller
      */
     public function index(): View
     {
+        Gate::authorize('viewAny', Car::class);
         $cars = $this->carsRepository->findAll();
         return view('pages.admin.cars.list', ['cars' => $cars]);
     }
@@ -32,6 +36,7 @@ class AdminCarsController extends Controller
      */
     public function create(): View
     {
+        Gate::authorize('create', Car::class);
         return view('pages.admin.cars.create', ['car' => $this->carsRepository->getModel()]);
     }
 
@@ -45,6 +50,7 @@ class AdminCarsController extends Controller
         CarCreationServiceContract $carCreationService,
         TagsSynchronizerServiceContract $tagsSynchronizerService,
     ): RedirectResponse {
+        Gate::authorize('create', Car::class);
         $car = $carCreationService->create($request->validated(), $request->get('categories'));
         $tagsSynchronizerService->sync($car, $tagsRequest->get('tags'));
         $flashMessage->success('Модель успешно создана');
@@ -56,9 +62,10 @@ class AdminCarsController extends Controller
      */
     public function edit(int $id): View
     {
-        return view('pages.admin.cars.edit', ['car' => $this->carsRepository->getById($id)]);
+        $car = $this->carsRepository->getById($id, ['image', 'images']);
+        Gate::authorize('update', $car);
+        return view('pages.admin.cars.edit', ['car' => $car]);
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -70,7 +77,8 @@ class AdminCarsController extends Controller
         CarUpdateServiceContract $carUpdateService,
         TagsSynchronizerServiceContract $tagsSynchronizerService,
     ): RedirectResponse {
-        $carUpdateService->update($id, $request->validated(), $request->get('categories'));
+        Gate::authorize('update', $this->carsRepository->getById($id));
+        $car = $carUpdateService->update($id, $request->validated(), $request->get('categories'));
         $tagsSynchronizerService->sync($car, $tagsRequest->get('tags'));
         $flashMessage->success('Модель успешно обновлена');
         return redirect()->route('admin.cars.index');
@@ -79,10 +87,14 @@ class AdminCarsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id, FlashMessageContract $flashMessage): RedirectResponse
-    {
-        $this->carsRepository->delete($id);
-        $flashMessage->success('Модель успешно удалена');
-        return redirect()->route('admin.cars.index');
+    public function destroy(
+        int $id,
+        CarRemoverServiceContract $carRemoverService,
+        FlashMessageContract $flashMessage,
+    ): RedirectResponse {
+        Gate::authorize('delete', $this->carsRepository->getById($id));
+        $carRemoverService->delete($id);
+        $flashMessage->success('Модель удалена');
+        return back();
     }
 }

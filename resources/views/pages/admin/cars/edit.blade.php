@@ -2,7 +2,7 @@
     page-title="Форма редактирования модели"
     title="Форма редактирования модели"
 >
-    <x-forms.form action="{{ route('admin.cars.update', [$car]) }}" method="post">
+    <x-forms.form action="{{ route('admin.cars.update', [$car]) }}" method="post" enctype="multipart/form-data">
         @method('patch')
         <x-forms.concrete-forms-fields.admin-car-form-fields :car="$car" />
         <x-forms.row>

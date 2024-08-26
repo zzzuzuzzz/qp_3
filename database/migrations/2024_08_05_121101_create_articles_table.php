@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('description');
+            $table->string('image')->nullable();
             $table->text('body');
             $table->dateTime('published_at')->nullable();
             $table->timestamps();

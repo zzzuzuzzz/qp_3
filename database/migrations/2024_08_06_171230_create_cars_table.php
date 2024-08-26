@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('price');
             $table->integer('old_price')->nullable();
+            $table->string('image')->nullable();
             $table->string('salon');
             $table->string('kpp');
             $table->integer('year');
